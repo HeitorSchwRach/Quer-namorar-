@@ -23,6 +23,16 @@ if (window.mobileCheck()){
 } else{
     $("body").mousemove(webHandler)
 }
+function mobileHandler(event){
+    event.preventDefault()
+    mobileState = mobileState % 4 +1
+    $("#not").css ({
+        top: '$(mobileState[mobileState].top * 50)%',
+        left: '$(mobileState[mobileState].left * 50)%',
+        position: 'absolute'
+    })
+
+    }
 
 function webHandler(event){
     let button = $("#not").position()
@@ -35,7 +45,7 @@ function webHandler(event){
     +Math.pow(event.pageY - button.centerY, 2)
     )
     if(distance < 80){
-        let ,odel = angulo(event, button, distance)
+        let model = angulo(event, button, distance)
         if (event.pageY < button.centerY){
             topMod += 10 * model.sin
        
