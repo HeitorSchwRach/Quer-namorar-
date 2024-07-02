@@ -12,23 +12,28 @@ window.mobileCheck = function(){
     return check 
 }
 
-let mobile_state = {1: {top: 1, left: 1},
+let mobile_states = {1: {top: 1, left: 1},
                     2: {top: 1, left: 0},
                     3: {top: 0, left: 0},
                     4: {top: 0, left: 1}
 }
 
-if (window.mobileCheck()){
-    $("#not").mouseover()
-} else{
-    $("body").mousemove(webHandler)
-}
+window.mobileCheck = function(){
+    let check = false;
+    (function(a){
+    if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a.substr(0,4))) {
+    check = true;
+    }
+    })(navigator.userAgent||navigator.vendor||window.opera);
+    return check;
+    };
 function mobileHandler(event){
     event.preventDefault()
     mobileState = mobileState % 4 +1
+
     $("#not").css ({
-        top: '$(mobileState[mobileState].top * 50)%',
-        left: '$(mobileState[mobileState].left * 50)%',
+        top: '$(mobile_state[mobileState].top * 50)%',
+        left: '$(mobile_state[mobileState].left * 50)%',
         position: 'absolute'
     })
 
@@ -63,7 +68,7 @@ function webHandler(event){
 
 }
 
-function calculeAngle(mouse, cneter, ditance){
+function calculeAngle(mouse, center, distance){
     let sin = Math.abs(mouse.pageY - center.y) /distance
     let cos = Math.abs(mouse.pageX - center.x)/distance
     return {sin: sin, cos: cos}
